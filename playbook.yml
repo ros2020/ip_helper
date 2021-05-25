@@ -1,0 +1,14 @@
+---
+- name: Show ip helper-address
+  hosts: all
+  gather_facts: no
+ 
+  tasks:
+    - name: run show ip helper-address on remote devices
+      cisco.ios.ios_command:  
+        commands: sh run | i ip helper-address
+      register: status_info  
+
+    - name: Write ip helper
+      debug:
+         msg: "{{status_info.stdout_lines}}"
